@@ -7,6 +7,7 @@ import Skills from './components/sections/Skills';
 import Experience from './components/sections/Experience';
 import Projects from './components/sections/Projects';
 import Footer from './components/layout/Footer';
+import CustomCursor from './components/ui/CustomCursor';
 import './index.css';
 
 function App() {
@@ -35,7 +36,8 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen selection:bg-accent/30 selection:text-white">
+    <div className="app bg-background text-text-primary min-h-screen selection:bg-accent/30 selection:text-accent font-sans">
+      <CustomCursor />
       <Navbar />
       <main>
         <Hero />

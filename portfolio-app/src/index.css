@@ -26,6 +26,12 @@
   color: #fff;
 }
 
+@media (pointer: fine) {
+  body, a, button, input, textarea, select, .glass-card {
+    cursor: none !important;
+  }
+}
+
 /* Lenis Recommended CSS */
 html.lenis, html.lenis body {
   height: auto;

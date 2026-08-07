@@ -74,7 +74,7 @@ const Hero = () => {
             <a href="https://github.com" target="_blank" rel="noreferrer" className="text-text-muted hover:text-accent transition-colors">
               <Github size={24} />
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="text-text-muted hover:text-accent transition-colors">
+            <a href="https://www.linkedin.com/in/astitva-raj-444786292/" target="_blank" rel="noreferrer" className="text-text-muted hover:text-accent transition-colors">
               <Linkedin size={24} />
             </a>
             <a href="mailto:astitvarajfbg@gmail.com" className="text-text-muted hover:text-accent transition-colors">

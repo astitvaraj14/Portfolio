@@ -60,7 +60,7 @@ const Footer = () => {
           </p>
 
           <div className="flex items-center gap-6">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="text-text-muted hover:text-accent transition-colors">
+            <a href="https://github.com/astitvaraj14" target="_blank" rel="noreferrer" className="text-text-muted hover:text-accent transition-colors">
               <Github size={20} />
             </a>
             <a href="https://www.linkedin.com/in/astitva-raj-444786292/" target="_blank" rel="noreferrer" className="text-text-muted hover:text-accent transition-colors">

@@ -1,0 +1,49 @@
+.experience-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.column-title {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.certifications {
+  padding: 1.5rem;
+}
+
+.certifications h4 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--accent-primary);
+}
+
+.cert-list {
+  padding-left: 1.2rem;
+}
+
+.cert-list li {
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  position: relative;
+}
+
+.cert-list li::before {
+  content: '▹';
+  position: absolute;
+  left: -1.2rem;
+  color: var(--accent-secondary);
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+@media (max-width: 992px) {
+  .experience-grid {
+    grid-template-columns: 1fr;
+  }
+}

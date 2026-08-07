@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Mail } from 'lucide-react';
 import { FiGithub as Github, FiLinkedin as Linkedin } from 'react-icons/fi';
 import { Button } from '@/components/ui/Button';
+import AnimatedText from '@/components/ui/AnimatedText';
 
 const Hero = () => {
   return (
@@ -31,18 +32,29 @@ const Hero = () => {
             <span className="text-sm font-medium text-text-secondary">Available for work</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter text-text-primary leading-[1.1]">
-            Astitva Raj<span className="text-accent">.</span>
-          </h1>
-          
-          <h2 className="text-xl md:text-2xl text-text-secondary font-light">
-            Full Stack Developer & <br className="hidden md:block"/> Creative Engineer
-          </h2>
-          
-          <p className="text-text-muted max-w-lg text-lg leading-relaxed">
+          {/* Main Typography */}
+          <div className="mb-6">
+            <AnimatedText 
+              text="Astitva Raj." 
+              el="h1"
+              className="text-6xl md:text-8xl font-black tracking-tighter text-white mb-2" 
+            />
+            <AnimatedText 
+              text={["Full Stack Developer &", "Creative Engineer"]}
+              el="h2"
+              className="text-2xl md:text-4xl font-light text-transparent bg-clip-text bg-gradient-to-r from-accent to-white/70"
+            />
+          </div>
+
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+            className="text-text-secondary text-lg md:text-xl max-w-lg mb-10 leading-relaxed font-light"
+          >
             I craft cinematic, high-performance web experiences and scalable software solutions. 
-            Currently based in Bengaluru, blending engineering with modern design.
-          </p>
+            Currently based in Bengaluru, blending robust engineering with <span className="text-white font-medium">modern design</span>.
+          </motion.p>
 
           <div className="flex flex-wrap items-center gap-4 mt-4">
             <a href="#projects">

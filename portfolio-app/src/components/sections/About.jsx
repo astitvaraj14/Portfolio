@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import AnimatedText from '@/components/ui/AnimatedText';
 
 const About = () => {
   return (
@@ -12,9 +13,11 @@ const About = () => {
           transition={{ duration: 0.8 }}
           className="mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary mb-2">
-            About Me.
-          </h2>
+          <AnimatedText 
+            text="About Me." 
+            el="h2" 
+            className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary mb-2" 
+          />
           <div className="w-20 h-1 bg-accent rounded-full"></div>
         </motion.div>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink } from 'lucide-react';
 import { FiGithub as Github } from 'react-icons/fi';
+import AnimatedText from '@/components/ui/AnimatedText';
 
 const Projects = () => {
   const projects = [
@@ -61,9 +62,11 @@ const Projects = () => {
           className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6"
         >
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary mb-2">
-              Featured Work.
-            </h2>
+            <AnimatedText 
+              text="Featured Work." 
+              el="h2" 
+              className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary mb-2" 
+            />
             <div className="w-20 h-1 bg-accent rounded-full"></div>
           </div>
           <p className="text-text-muted max-w-md">

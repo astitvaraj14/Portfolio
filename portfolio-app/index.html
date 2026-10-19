@@ -1,13 +1,272 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>portfolio-app</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Astitva – Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050807;--panel:#0b110e;--line:#1f3a2b;--green:#4ade80;--violet:#8b7bff;--text:#e6efe9;--mute:#8fa398;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:4rem}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.55}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+header{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:flex-end;gap:1.5rem;padding:1rem clamp(1rem,4vw,3rem);background:linear-gradient(#050807cc,transparent)}
+header a{color:var(--text);text-decoration:none;font-weight:500}
+header a:hover,header a:focus-visible{color:var(--green);outline:none}
+main{position:relative;z-index:1;max-width:68rem;margin:0 auto;padding:6rem 1.25rem 3rem}
+section{margin-bottom:6rem}
+h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;letter-spacing:-.02em;margin:0 0 1.5rem}
+.hero{display:grid;grid-template-columns:1fr 15rem;gap:1.5rem;align-items:stretch;min-height:70vh;align-content:center;perspective:1200px}
+.code{border:1px solid var(--green);background:linear-gradient(135deg,#0c1a12,#050807 70%);padding:1.5rem;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#c8d5cd;transform-style:preserve-3d;transition:transform .15s;box-shadow:0 0 60px #4ade8014}
+.code .t{color:#ff6b6b}.code .n{display:block;padding-left:1.25rem}
+.code .typed{display:block;font-family:'Bricolage Grotesque',sans-serif;font-size:clamp(1.4rem,3.4vw,2.3rem);font-weight:800;line-height:1.15;color:var(--green);padding:.6rem 0 .6rem 1.25rem;min-height:5.5rem}
+.caret{display:inline-block;width:.1em;height:1em;background:var(--green);vertical-align:-.12em;animation:b 1s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+.photo{border:1px solid var(--violet);display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,#8b7bff30,#0b110e 70%);color:var(--mute);text-align:center;font-size:.85rem;padding:1rem;transition:transform .15s}
+.photo b{display:block;font-size:4rem;color:var(--violet);line-height:1}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:1rem;perspective:1000px}
+.card{position:relative;border:1px solid var(--line);background:var(--panel);padding:1.25rem;transition:transform .15s,border-color .3s;transform-style:preserve-3d}
+.card::after{content:"";position:absolute;inset:0;background:radial-gradient(14rem circle at var(--mx,50%) var(--my,50%),#4ade8022,transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover{border-color:var(--green)}.card:hover::after{opacity:1}
+.card h3{margin:0 0 .3rem;font-size:1.1rem;transform:translateZ(30px)}
+.card p{margin:0;color:var(--mute);font-family:'JetBrains Mono',monospace;font-size:.78rem}
+.tabs{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem}
+.tabs button{font:inherit;font-weight:500;color:var(--text);background:#121a16;border:1px solid var(--line);padding:.5rem 1rem;cursor:pointer;transition:.25s}
+.tabs button:hover{border-color:var(--green)}
+.tabs button[aria-selected=true]{background:var(--green);color:#03150a;border-color:var(--green)}
+.tabs button:focus-visible{outline:2px solid var(--violet);outline-offset:2px}
+.stage{position:relative;height:clamp(18rem,48vw,26rem);border:1px solid var(--violet);background:#070b09;cursor:grab;touch-action:pan-y}
+.stage canvas{width:100%;height:100%;display:block}
+.stage:active{cursor:grabbing}
+.info{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-top:.75rem;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--mute)}
+.info b{color:var(--green)}
+.connect{display:flex;flex-wrap:wrap;gap:1rem}
+.connect a{color:var(--text);text-decoration:none;border:1px solid var(--line);padding:.8rem 1.4rem;font-weight:500;transition:.25s}
+.connect a:hover,.connect a:focus-visible{border-color:var(--green);color:var(--green);outline:none}
+footer{position:relative;z-index:1;text-align:center;color:var(--mute);padding:2rem 1rem;font-size:.85rem}
+.photo{padding:0;overflow:hidden}.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.card h3 small{display:block;font-size:.8rem;font-weight:500;color:var(--green);margin-top:.15rem}
+.desc{max-width:44rem;margin:1rem 0 0;color:var(--text)}
+
+#bar{position:fixed;top:0;left:0;right:0;height:3px;z-index:6;background:linear-gradient(90deg,var(--green),var(--violet));transform:scaleX(0);transform-origin:0 50%}
+header a{position:relative}header a.on{color:var(--green)}
+main{counter-reset:s}
+section:not(.hero) h2::before{counter-increment:s;content:"0" counter(s);display:block;font-family:'JetBrains Mono',monospace;font-size:.85rem;font-weight:400;letter-spacing:.12em;color:var(--green);margin-bottom:.5rem}
+.btn{font:inherit;font-weight:500;color:var(--text);text-decoration:none;border:1px solid var(--line);background:transparent;padding:.8rem 1.4rem;cursor:pointer;transition:.25s;display:inline-block}
+.btn:hover,.btn:focus-visible{border-color:var(--green);color:var(--green);outline:none}
+.btn.pri{background:var(--green);border-color:var(--green);color:#03150a}.btn.pri:hover,.btn.pri:focus-visible{background:#86efac;color:#03150a}
+.cta{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:.75rem;margin-top:.5rem}
+.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:1rem;margin-top:1rem}
+.stats div{border-top:1px solid var(--line);padding-top:.8rem}
+.stats b{display:block;font-size:clamp(2rem,5vw,3rem);font-weight:800;line-height:1}
+.stats span{color:var(--mute);font-size:.9rem}
+.big{display:block;width:fit-content;max-width:100%;overflow-wrap:anywhere;font-size:clamp(1.3rem,4.5vw,2.8rem);font-weight:800;color:var(--green);text-decoration:none;border-bottom:2px solid currentColor;margin:1rem 0 1.5rem}
+.rv{opacity:0;translate:0 26px;transition:opacity .7s ease,translate .7s ease}
+.card.rv{transition:transform .15s,border-color .3s,opacity .7s ease,translate .7s ease}
+.rv.in{opacity:1;translate:0 0}
+@media(max-width:600px){header{gap:.9rem;font-size:.9rem}}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;translate:none}}
+
+.card a{color:var(--green)}
+.links{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1rem}
+.sub{font-size:1.1rem;font-weight:500;margin:2rem 0 1rem;color:var(--mute)}
+.bars{display:grid;gap:.6rem;max-width:44rem}
+.bars .row{display:grid;grid-template-columns:9.5rem 1fr 2rem;gap:.75rem;align-items:center;font-size:.9rem}
+.bars .track{height:.7rem;background:#101713;border:1px solid var(--line)}
+.bars .fill{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--violet));transition:width 1s ease .2s}
+.bars.in .fill{width:var(--w)}
+.bars b{font-family:'JetBrains Mono',monospace;color:var(--green);text-align:right}
+@media(max-width:520px){.bars .row{grid-template-columns:7rem 1fr 1.6rem}}
+@media(prefers-reduced-motion:reduce){.bars .fill{width:var(--w)}}
+@media(max-width:700px){.hero{grid-template-columns:1fr}.photo{min-height:11rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.caret{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div id="bar"></div>
+<header><a href="#home">Home</a><a href="#skills">Skills</a><a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#leetcode">LeetCode</a><a href="#contact">Hire me</a></header>
+<main>
+<section id="home" class="hero">
+<div class="code tilt" id="code">
+<span>&lt;!DOCTYPE html&gt;</span>
+<span>&lt;html lang="en"&gt;</span>
+<span class="n">&lt;title&gt;Introduction&lt;/title&gt;</span>
+<span class="n">&lt;role&gt;Software Developer Apprentice, CBA&lt;/role&gt;</span>
+<span class="t">&lt;body&gt;</span>
+<span class="typed" id="typed" aria-label="Hey there, this is Astitva Raj. A backend-focused developer who builds secure systems."></span>
+<span class="t">&lt;/body&gt;</span>
+<span>&lt;/html&gt;</span>
+</div>
+<div class="photo tilt"><img src="Astitva.jpg" onerror="this.onerror=null;this.src='astitva.jpg';" alt="Portrait of Astitva Raj"></div>
+<div class="cta"><a class="btn pri" href="mailto:astitvarajfbg@gmail.com">Get in touch</a><button class="btn resume-btn" type="button">Resume (PDF)</button><a class="btn" href="https://github.com/astitvaraj14" target="_blank" rel="noopener">GitHub</a><a class="btn" href="https://linkedin.com/in/astitva-raj-444786292" target="_blank" rel="noopener">LinkedIn</a></div>
+<div class="stats"><div><b data-n="9.44" data-d="2">9.44</b><span>CGPA, B.E. CSE</span></div><div><b data-n="42">42</b><span>secured REST endpoints in PropLens</span></div><div><b data-n="85" data-s="%">85%</b><span>JUnit test coverage</span></div><div><b data-n="2">2</b><span>Smart India Hackathons, shortlisted</span></div></div>
+</section>
+
+<section id="skills">
+<h2>My skills</h2>
+<div class="grid">
+<div class="card"><h3>Languages</h3><p>Java, JavaScript, TypeScript, Python, SQL</p></div>
+<div class="card"><h3>Backend</h3><p>Spring Boot, Spring Security, JPA, JWT, RBAC, Node.js, Express, FastAPI</p></div>
+<div class="card"><h3>Frontend</h3><p>React.js, React Native</p></div>
+<div class="card"><h3>Databases</h3><p>MySQL, PostgreSQL, MongoDB</p></div>
+<div class="card"><h3>Tools</h3><p>Git, GitHub, AWS, Maven, JUnit, Postman, Docker</p></div>
+<div class="card"><h3>Deployment</h3><p>Render, Vercel, Expo EAS Build</p></div>
+<div class="card"><h3>Core CS</h3><p>DSA, OOP, DBMS, Operating Systems</p></div>
+</div>
+</section>
+
+<section id="experience">
+<h2>Experience and recognition</h2>
+<div class="grid">
+<div class="card"><h3>Software Developer Apprentice<small>Commonwealth Bank of Australia, Jul 2026 – now</small></h3><p>Led six engineers to ship the Digital Marketplace prototype in a 1.5-week cycle. Own the backend: 31 REST routes, 5-state order lifecycle, RBAC middleware.</p></div>
+<div class="card"><h3>Java and Spring Boot Intern<small>Infosys Springboard, Jun – Aug 2026</small></h3><p>8-week program on Spring Security (JWT, RBAC) and JUnit. Applied it in PropLens. Certificate earned.</p></div>
+<div class="card"><h3>Team Leader<small>Smart India Hackathon 2025 and 2026</small></h3><p>Led six-member teams, shortlisted both years. <a href="https://github.com/astitvaraj14/Gamefied-Learning-Platform-for-Rural-Areas" target="_blank" rel="noopener">SIH 2025 repo</a> · <a href="https://github.com/astitvaraj14/SkyGuard-AI" target="_blank" rel="noopener">SIH 2026 repo</a></p></div>
+<div class="card"><h3>First place<small>IoT in Action, Don Bosco Institute of Technology</small></h3><p>Won among 19 teams with FireWatch.</p></div>
+<div class="card"><h3>B.E. Computer Science<small>Don Bosco Institute of Technology, 2023 – 2027</small></h3><p>CGPA 9.44 out of 10.</p></div>
+<div class="card"><h3>Published author<small>IJSREM, May 2026</small></h3><p>Project Management System Using CPM and PERT. <a href="https://doi.org/10.55041/IJSREM63803" target="_blank" rel="noopener">Read the paper</a></p></div>
+</div>
+</section>
+
+<section id="projects">
+<h2>Projects</h2>
+<div class="tabs" role="tablist" aria-label="Projects"></div>
+<div class="stage" id="stage" aria-label="3D map of the project stack. Drag to rotate, hover a node for details."></div>
+<p class="desc" id="desc"></p>
+<div class="links" id="plinks"></div>
+<div class="info"><span id="i1"></span><span>Drag to rotate. Hover or tap a node.</span></div>
+</section>
+
+<section id="leetcode">
+<h2>LeetCode</h2>
+<div class="stats"><div><b data-n="83">83</b><span>problems solved in Java</span></div><div><b data-n="46">46</b><span>array problems</span></div><div><b data-n="50">50</b><span>Days Badge 2026</span></div></div>
+<h3 class="sub">Problems by topic</h3>
+<div class="bars"><div class="row"><span>Array</span><div class="track"><i class="fill" style="--w:100%"></i></div><b>46</b></div><div class="row"><span>Two Pointers</span><div class="track"><i class="fill" style="--w:37%"></i></div><b>17</b></div><div class="row"><span>String</span><div class="track"><i class="fill" style="--w:35%"></i></div><b>16</b></div><div class="row"><span>Binary Search</span><div class="track"><i class="fill" style="--w:28%"></i></div><b>13</b></div><div class="row"><span>Math</span><div class="track"><i class="fill" style="--w:26%"></i></div><b>12</b></div><div class="row"><span>Dynamic Programming</span><div class="track"><i class="fill" style="--w:17%"></i></div><b>8</b></div><div class="row"><span>Hash Table</span><div class="track"><i class="fill" style="--w:17%"></i></div><b>8</b></div><div class="row"><span>Divide and Conquer</span><div class="track"><i class="fill" style="--w:7%"></i></div><b>3</b></div><div class="row"><span>Backtracking</span><div class="track"><i class="fill" style="--w:4%"></i></div><b>2</b></div></div>
+<div class="links"><a class="btn pri" href="https://leetcode.com/u/astitvaraj14/" target="_blank" rel="noopener">Open my LeetCode profile</a></div>
+</section>
+
+<section id="contact">
+<h2>Let’s build something</h2>
+<p class="desc">Software Developer Apprentice at Commonwealth Bank of Australia in Bengaluru. Backend-focused: Java, Spring Boot, Node.js and secure APIs.</p>
+<a class="big" href="mailto:astitvarajfbg@gmail.com">astitvarajfbg@gmail.com</a>
+<div class="connect"><button class="btn pri" id="copy">Copy email</button><button class="btn resume-btn" type="button">Resume (PDF)</button><a class="btn" href="https://github.com/astitvaraj14" target="_blank" rel="noopener">GitHub</a><a class="btn" href="https://linkedin.com/in/astitva-raj-444786292" target="_blank" rel="noopener">LinkedIn</a><a class="btn" href="https://leetcode.com/u/astitvaraj14" target="_blank" rel="noopener">LeetCode</a></div>
+</section>
+</main>
+<footer>© 2026 Astitva Raj. Bengaluru, India.</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+var calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// typewriter
+var msg='Hey there, this is Astitva Raj. A backend-focused developer who builds secure systems.',te=document.getElementById('typed'),ci=0;
+if(calm){te.textContent=msg}else{te.innerHTML='<span class="caret"></span>';
+ (function type(){ci++;te.innerHTML='';te.appendChild(document.createTextNode(msg.slice(0,ci)));var c=document.createElement('span');c.className='caret';te.appendChild(c);if(ci<msg.length)setTimeout(type,34)})()}
+// tilt
+function tilt(el,max){
+ el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+  if(!calm)el.style.transform='rotateY('+x*max+'deg) rotateX('+-y*max+'deg)';el.style.setProperty('--mx',(x+.5)*100+'%');el.style.setProperty('--my',(y+.5)*100+'%')});
+ el.addEventListener('pointerleave',function(){el.style.transform=''});
+}
+document.querySelectorAll('.tilt').forEach(function(e){tilt(e,8)});
+document.querySelectorAll('.card').forEach(function(e){tilt(e,14)});
+function R(){return Math.random()}
+// background scene
+var bgc=document.getElementById('bg'),bg;
+try{bg=new THREE.WebGLRenderer({canvas:bgc,antialias:true,alpha:true})}catch(e){bg=null}
+var bgFrame=function(){};
+if(bg){
+ bg.setPixelRatio(Math.min(devicePixelRatio,2));
+ var sc=new THREE.Scene(),cm=new THREE.PerspectiveCamera(60,1,.1,200);cm.position.z=14;
+ var cnt=900,pp=new Float32Array(cnt*3);for(var i=0;i<cnt*3;i++)pp[i]=(R()-.5)*60;
+ var g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pp,3));
+ sc.add(new THREE.Points(g,new THREE.PointsMaterial({size:.06,color:0x4ade80,transparent:true,opacity:.6})));
+ var shapes=[];
+ for(i=0;i<9;i++){
+  var m=new THREE.Mesh(i%2?new THREE.BoxGeometry(1.4,1.4,1.4):new THREE.IcosahedronGeometry(1,0),new THREE.MeshBasicMaterial({color:i%3?0x4ade80:0x8b7bff,wireframe:true,transparent:true,opacity:.35}));
+  m.position.set((R()-.5)*30,(R()-.5)*20,(R()-.5)*14-4);m.userData={s:.1+R()*.3,y:m.position.y};sc.add(m);shapes.push(m);
+ }
+ var bmx=0,bmy=0;addEventListener('pointermove',function(e){bmx=e.clientX/innerWidth-.5;bmy=e.clientY/innerHeight-.5});
+ var bs=function(){bg.setSize(innerWidth,innerHeight,false);cm.aspect=innerWidth/innerHeight;cm.updateProjectionMatrix()};addEventListener('resize',bs);bs();
+ bgFrame=function(t){
+  var max=document.documentElement.scrollHeight-innerHeight,p=max>0?scrollY/max:0;
+  cm.position.x+=(bmx*4-cm.position.x)*.04;cm.position.y+=(-bmy*3-p*10-cm.position.y)*.04;cm.lookAt(0,-p*10,0);
+  if(!calm)shapes.forEach(function(s,j){s.rotation.x=t*s.userData.s;s.rotation.y=t*s.userData.s*1.3;s.position.y=s.userData.y+Math.sin(t*.4+j)*.8});
+  bg.render(sc,cm);
+ };
+}
+// 3D stack map
+var stage=document.getElementById('stage'),tabsEl=document.querySelector('.tabs'),hr;
+var tabs=[
+ {n:'PropLens',g:'https://github.com/astitvaraj14/AI-Based-Real-Estate-Due-Diligence',l:'https://real-estate-frontend-jv2i.onrender.com/login',c:'#4ade80',i:'<b>42</b> REST endpoints · <b>85%</b> JUnit coverage',x:'Property due-diligence platform for buyers and investors. Java 21, Spring Boot 3, Spring Security with JWT and role-based access. Combines dispute history, flood-zone ratings and comparable valuations into one risk score.',nodes:[['Spring Boot 3','Java 21 backend'],['JWT auth','Token-based authentication I built'],['RBAC','Role-based access control'],['42 endpoints','Secured REST API'],['JUnit','40+ tests, 85% coverage'],['Risk report','Disputes + flood zones + valuations = composite score']]},
+ {n:'Digital Marketplace',g:'https://github.com/astitvaraj14/Digital-Marketplace',l:'https://digital-marketplace-1.onrender.com/',c:'#60a5fa',i:'<b>31</b> REST routes · <b>6</b> collections · team of <b>6</b>',x:'MERN multi-vendor prototype built at CBA with customer, seller and admin roles and a 5-state order lifecycle. I led the team and own the backend.',nodes:[['Express API','31 routes across 8 route files'],['MongoDB','6 collections, Mongoose pre-save hooks'],['RBAC middleware','Blocks unapproved sellers, kills blocked sessions'],['Order lifecycle','5 states from seller approval to inventory deduction'],['React','Customer, seller and admin views'],['Render','Live deployment']]},
+ {n:'FireWatch',g:'https://github.com/astitvaraj14/FireWatch-IoT',l:'',c:'#fb923c',i:'<b>1.2 s</b> average alert · <b>1st</b> of 19 teams',x:'IoT fire detection. An ESP32 flame sensor posts to a Node.js server, which streams to a live dashboard and Telegram alerts. A local buzzer still works if Wi-Fi drops.',nodes:[['ESP32 sensor','Flame sensor, 3-sample debounce'],['Node.js server','Receives the sensor posts'],['Live dashboard','Streams updates over SSE'],['Telegram alerts','1.2 s on average'],['Local buzzer','Keeps working if Wi-Fi drops']]},
+ {n:'CampusBunk',g:'https://github.com/astitvaraj14/CampusBunk',l:'',c:'#8b7bff',i:'<b>4</b> screens · <b>75%</b> default threshold',x:'Android attendance tracker in React Native, Expo and TypeScript. Shows classes safe to skip, classes needed to recover, and what-if semester projections.',nodes:[['React Native','Android app, 4 screens'],['Expo EAS Build','Produces the APK'],['TypeScript','Typed codebase'],['Skip engine','Classes safe to skip'],['Recovery engine','Classes needed to recover'],['What-if view','Semester projections']]},
+ {n:'SkyGuard AI',g:'https://github.com/astitvaraj14/SkyGuard-AI',l:'',c:'#34d399',i:'Smart India Hackathon 2026 · shortlisted',x:'Weather-station monitor built with React, FastAPI and SQLite, with a physics-rule engine, drift detection and explainable fault diagnostics.',nodes:[['React','Monitoring dashboard'],['FastAPI','Backend API'],['SQLite','Data store'],['Physics rules','Rule engine for sensor sanity'],['Drift detection','Flags slow sensor drift'],['Explainable faults','Says why a fault was raised']]}
+];
+try{hr=new THREE.WebGLRenderer({antialias:true,alpha:true})}catch(e){hr=null}
+if(!hr){stage.textContent='3D view needs WebGL.';stage.style.padding='1rem'}
+else{
+ hr.setPixelRatio(Math.min(devicePixelRatio,2));stage.appendChild(hr.domElement);
+ var hs=new THREE.Scene(),hc=new THREE.PerspectiveCamera(45,1,.1,100);hc.position.set(0,1.5,9.5);hc.lookAt(0,0,0);
+ hs.add(new THREE.AmbientLight(0xffffff,.6));var dl=new THREE.DirectionalLight(0xffffff,.9);dl.position.set(5,8,8);hs.add(dl);
+ var grp=new THREE.Group();hs.add(grp);var meshes=[],active=0,grow=.2,hover=null,ray=new THREE.Raycaster(),pt=new THREE.Vector2();
+ function label(txt,col){var c=document.createElement('canvas');c.width=512;c.height=96;var g=c.getContext('2d');g.font='700 40px sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillStyle=col;g.fillText(txt,256,48);
+  var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthTest:false}));sp.scale.set(3.4,.64,1);sp.renderOrder=5;return sp}
+ function node(r,col,pos,txt,det){var m=new THREE.Mesh(new THREE.SphereGeometry(r,24,24),new THREE.MeshStandardMaterial({color:col,emissive:col,emissiveIntensity:.35,roughness:.4}));m.position.copy(pos);m.userData={t:txt,d:det,r:r};
+  var l=label(txt,'#e6efe9');l.position.set(0,r+.45,0);m.add(l);grp.add(m);meshes.push(m);return m}
+ function build(k){
+  while(grp.children.length)grp.remove(grp.children[0]);meshes=[];grow=.2;
+  var t=tabs[k],col=new THREE.Color(t.c),n=t.nodes.length;
+  node(.6,col,new THREE.Vector3(0,0,0),t.n,t.x);
+  for(var i=0;i<n;i++){var a=Math.acos(1-2*(i+.5)/n),b=Math.PI*(1+Math.sqrt(5))*i,R=3.1,p=new THREE.Vector3(R*Math.sin(a)*Math.cos(b),R*Math.cos(a)*.8,R*Math.sin(a)*Math.sin(b));
+   node(.26,0xe6efe9,p,t.nodes[i][0],t.nodes[i][1]);
+   var lg=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),p]);grp.add(new THREE.Line(lg,new THREE.LineBasicMaterial({color:col,transparent:true,opacity:.45})))}
+ }
+ function pick(k){active=k;build(k);var t=tabs[k];setInfo(t.i);document.getElementById('desc').textContent=t.x;var pl=document.getElementById('plinks');pl.textContent='';[['GitHub',t.g],['Live demo',t.l]].forEach(function(x){if(!x[1])return;var a=document.createElement('a');a.className='btn';a.textContent=x[0];a.href=x[1];a.target='_blank';a.rel='noopener';pl.appendChild(a)});
+  [].forEach.call(tabsEl.children,function(b,j){b.setAttribute('aria-selected',j===k)})}
+ function setInfo(h){document.getElementById('i1').innerHTML=h}
+ tabs.forEach(function(t,k){var b=document.createElement('button');b.textContent=t.n;b.setAttribute('role','tab');b.onclick=function(){pick(k)};tabsEl.appendChild(b)});
+ pick(0);
+ var ry=.4,vy=0,drag=false,lx=0;
+ function aim(e){var r=stage.getBoundingClientRect();pt.set((e.clientX-r.left)/r.width*2-1,-((e.clientY-r.top)/r.height)*2+1);ray.setFromCamera(pt,hc);
+  var h=ray.intersectObjects(meshes)[0];h=h?h.object:null;if(h!==hover){hover=h;setInfo(h?'<b>'+h.userData.t+'</b> · '+h.userData.d:tabs[active].i)}}
+ stage.addEventListener('pointerdown',function(e){drag=true;lx=e.clientX;aim(e)});
+ addEventListener('pointerup',function(){drag=false});
+ stage.addEventListener('pointermove',aim);
+ stage.addEventListener('pointerleave',function(){hover=null;setInfo(tabs[active].i)});
+ addEventListener('pointermove',function(e){if(drag){vy=(e.clientX-lx)*.008;lx=e.clientX}});
+ var hs2=function(){var w=stage.clientWidth,h=stage.clientHeight;hr.setSize(w,h);hc.aspect=w/h;hc.updateProjectionMatrix();hc.position.z=w/h<1.2?15:9.5};
+ new ResizeObserver(hs2).observe(stage);hs2();
+ var vis=true;new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(stage);
+ var heatFrame=function(){
+  if(!vis)return;
+  ry+=vy;vy*=.92;if(!drag&&!calm&&!hover)ry+=.004;grp.rotation.y=ry;
+  grow+=(1-grow)*.08;grp.scale.setScalar(grow);
+  meshes.forEach(function(m){var tg=m===hover?1.45:1,s2=m.scale.x+(tg-m.scale.x)*.15;m.scale.setScalar(s2)});
+  hr.render(hs,hc);
+ };
+}
+// polish
+var bar=document.getElementById('bar');
+addEventListener('scroll',function(){var m=document.documentElement.scrollHeight-innerHeight;bar.style.transform='scaleX('+(m>0?scrollY/m:0)+')'},{passive:true});
+var links={};document.querySelectorAll('header a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});
+var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){for(var k in links)links[k].classList.toggle('on',k===e.target.id)}})},{rootMargin:'-45% 0px -50% 0px'});
+document.querySelectorAll('section[id]').forEach(function(x){so.observe(x)});
+var rv=document.querySelectorAll('.card,section h2,.stats>div,.cta,.tabs,.stage,.bars');
+if(!calm){rv.forEach(function(el){el.classList.add('rv')});var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target)}})},{threshold:.1});rv.forEach(function(el){ro.observe(el)})}
+document.querySelectorAll('[data-n]').forEach(function(el){var to=+el.dataset.n,dec=+(el.dataset.d||0),suf=el.dataset.s||'';
+ function set(v){el.textContent=v.toFixed(dec)+suf}
+ if(calm)return;set(0);
+ var co=new IntersectionObserver(function(es){if(es[0].isIntersecting){co.disconnect();var t0=performance.now();(function st(now){var p=Math.min(1,(now-t0)/1200);set(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(st)})(t0)}});co.observe(el)});
+var cb=document.getElementById('copy');
+cb.onclick=function(){var em='astitvarajfbg@gmail.com';function ok(){cb.textContent='Copied';setTimeout(function(){cb.textContent='Copy email'},1800)}
+ try{navigator.clipboard.writeText(em).then(ok,function(){location.href='mailto:'+em})}catch(e){location.href='mailto:'+em}};
+document.querySelectorAll('.resume-btn').forEach(function(btn){btn.onclick=function(){var a=document.createElement('a');a.href='Astitva_Raj_Resume.pdf';a.download='Astitva_Raj_Resume.pdf';document.body.appendChild(a);a.click();a.remove()}});
+var clock=new THREE.Clock();
+(function loop(){var t=clock.getElapsedTime();bgFrame(t);if(typeof heatFrame==='function')heatFrame();requestAnimationFrame(loop)})();
+})();
+</script>
+</body>
 </html>
